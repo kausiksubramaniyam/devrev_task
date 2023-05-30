@@ -6,6 +6,15 @@ public class Ticket {
 
     private Integer seatNumber;
 
+    public void createTicket(int ticketId, int flightNumber, String userId, int ticketCost, int seatNumber) {
+        this.ticketId=ticketId;
+        this.flightNumber=flightNumber;
+        this.userId=userId;
+        this.ticketCost=ticketCost;
+        this.seatNumber=seatNumber;
+    }
+
+
     public Integer getTicketId() {
         return this.ticketId;
     }

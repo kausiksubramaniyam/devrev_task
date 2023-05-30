@@ -32,6 +32,38 @@ public class TicketsCRUD {
         }
     }
 
+    public void getAllTicketsBookedByUser(String userId){
+        ArrayList<Ticket> bookings = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Tickets WHERE userId = ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int ticketId = rs.getInt("ticketId");
+                int flightNumber = rs.getInt("flightNumber");
+                int ticketCost = rs.getInt("ticketCost");
+                int seatNumber = rs.getInt("seatNumber");
+
+                Ticket ticket = new Ticket();
+                ticket.createTicket(ticketId, flightNumber, userId, ticketCost, seatNumber);
+
+                bookings.add(ticket);
+            }
+            for(Ticket t:bookings){
+                System.out.println(t.getTicketId());
+                System.out.println(t.getSeatNumber());
+                System.out.println(t.getFlightNumber());
+                System.out.println(t.getTicketCost());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public Ticket getTicketById(int ticketId) {
         try {
             String query = "SELECT * FROM Tickets WHERE ticketID = ?";
