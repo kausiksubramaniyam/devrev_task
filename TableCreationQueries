@@ -1,0 +1,29 @@
+CREATE TABLE Flights (
+  flightNumber INT PRIMARY KEY,
+  flightModel VARCHAR(50),
+  airlineName VARCHAR(50) NOT NULL,
+  fromDestination VARCHAR(50) NOT NULL,
+  toDestination VARCHAR(50) NOT NULL,
+  nextDeparture DATETIME NOT NULL,
+  seatCount INT NOT NULL
+);
+
+CREATE TABLE Users (
+  userId VARCHAR(50) PRIMARY KEY,
+  userName VARCHAR(100) NOT NULL,
+  userAge INT NOT NULL,
+  userType INT NOT NULL,
+  aadharId INT NOT NULL,
+  phoneNumber VARCHAR(10) NOT NULL,
+  password VARCHAR(15) NOT NULL;
+);
+
+CREATE TABLE Tickets (
+  ticketId INT AUTO_INCREMENT PRIMARY KEY,
+  flightId INT NOT NULL,
+  passengerId INT NOT NULL,
+  ticketCost INT NOT NULL,
+  seatNumber INT NOT NULL,
+  FOREIGN KEY (flightId) REFERENCES flights(flightNumber),
+  FOREIGN KEY (passengerId) REFERENCES Users(userId)
+);

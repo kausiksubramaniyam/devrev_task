@@ -3,14 +3,17 @@ import java.util.Scanner;
 public class Users {
     private String userId;
     private String userName;
+    private Integer userAge;
     private Integer userType;
     private Integer aadharId;
     private String password;
+    private String phoneNumber;
 
 
-    public void createUser(String userId,String userName,Integer userType, Integer aadharId, String password){
+    public void createUser(String userId,String userName,Integer userType,Integer userAge,Integer aadharId, String password, String phoneNumber){
         this.userId= userId;
         this.userName=userName;
+        this.userAge=userAge;
         this.userType=userType;
         this.aadharId=aadharId;
         System.out.println("Please Re-Enter Your Password :");
@@ -34,6 +37,7 @@ public class Users {
             System.out.println("PASSWORDS DOESNOT MATCH TRY AGAIN");
             System.exit(0);
         }
+        this.phoneNumber=phoneNumber;
     }
 
 }
