@@ -46,8 +46,63 @@ public class Flights {
 
         }
 
-
-
-
+    public Integer getFlightNumber() {
+        return this.flightNumber;
     }
+
+    public void setFlightNumber(Integer flightNumber) {
+        this.flightNumber = flightNumber;
+    }
+
+    public String getFlightModel() {
+        return this.flightModel;
+    }
+
+    public void setFlightModel(String flightModel) {
+        this.flightModel = flightModel;
+    }
+
+    public String getAirlineName() {
+        return this.airlineName;
+    }
+
+    public void setAirlineName(String airlineName) {
+        this.airlineName = airlineName;
+    }
+
+    public String getFromDestination() {
+        return this.fromDestination;
+    }
+
+    public void setFromDestination(String fromDestination) {
+        this.fromDestination = fromDestination;
+    }
+
+    public String getToDestination() {
+        return this.toDestination;
+    }
+
+    public void setToDestination(String toDestination) {
+        this.toDestination = toDestination;
+    }
+
+    public LocalDateTime getNextDeparture() {
+        return this.nextDeparture;
+    }
+
+    public void setNextDeparture(LocalDateTime nextDeparture) {
+        this.nextDeparture = nextDeparture;
+    }
+
+    public Integer getSeatCount() {
+        return this.seatCount;
+    }
+
+    public void setSeatCount(Integer seatCount) {
+        this.seatCount = seatCount;
+    }
+}
+
+
+
 
