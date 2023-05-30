@@ -1,3 +1,6 @@
+CREATE DATABASE Flight_Ticketing_System;
+
+
 CREATE TABLE Flights (
   flightNumber INT PRIMARY KEY,
   flightModel VARCHAR(50),
