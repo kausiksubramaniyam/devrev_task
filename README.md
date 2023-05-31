@@ -38,5 +38,5 @@ FUNCTIONS :
 
 # UsersCRUD.java 
 FUNCTIONS :
-1. 
+1. addPassenger(Users user, Integer role) - To add User as Passenger in Table 
    
