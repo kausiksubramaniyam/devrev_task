@@ -71,6 +71,7 @@ public class Main {
 
                             flightObj.BookTicket(seatNumber,userId);
 
+                            System.out.println("Ticket Booked Successfully , You will get an Auto Generated Email to your User Id /Mail Id, with all teh ticket details:");
                             break;
 
                         case 4:
