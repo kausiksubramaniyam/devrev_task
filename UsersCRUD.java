@@ -22,7 +22,7 @@ public class UsersCRUD {
             statement.setString(1, user.getUserId());
             statement.setString(2, user.getUserName());
             statement.setInt(3, user.getUserAge());
-            statement.setInt(4, user.getUserType());
+            statement.setInt(4, role);
             statement.setInt(5, user.getAadharId());
             statement.setString(6, user.getPhoneNumber());
             statement.setString(7, user.getPassword());
