@@ -54,6 +54,9 @@ public class Flights {
             Ticket ticket = new Ticket();
             ticket.createTicketAutoNumber(this.flightNumber, userId, this.ticketCost, seatNumber);
             this.seatTicketMap.put(seatNumber,ticket);
+            TicketsCRUD ticketCRUD = new TicketsCRUD();
+            ticketCRUD.bookTicket(ticket);
+            this.seatTicketMap.put(seatNumber,ticket);
         }
 
     public Integer getFlightNumber() {
