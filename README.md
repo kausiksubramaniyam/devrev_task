@@ -31,5 +31,12 @@ FUNCTIONS :
   
 # TicketsCRUD.java
 FUNCTIONS :
+1. bookTicket(Ticket ticket) - To Book ticket using Ticket object // Only Accessible by User
+2. getAllTicketsBookedByUserId(String userId) - Gets and prints all Tickets Booked by User // Only Accessible by User
+3. getTicketById(int ticketId) - Returns ticket object wrt to given Ticket Id // Accessible by both Admin & User
+4. getAllBookedTicketsByFlightId(Integer flightId) - Returns all the tickets booked in a Flight // Only Accessible by Admin
+
+# UsersCRUD.java 
+FUNCTIONS :
 1. 
-  
+   
