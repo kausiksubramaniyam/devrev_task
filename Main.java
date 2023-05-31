@@ -185,6 +185,9 @@ public class Main {
                 Users user = new Users();
                 user.createUser(newUserId,userName,userType,userAge,aadharId,userPassword,phoneNumber);
                 this.allUsersMap.put(newUserId,user);
+                
+                UsersCRUD usrs = new UsersCRUD();
+                usrs.addPassenger(user, 0);
         }
     }
 }
