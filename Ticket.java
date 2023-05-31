@@ -14,6 +14,13 @@ public class Ticket {
         this.seatNumber=seatNumber;
     }
 
+    public void createTicketAutoNumber(int flightNumber, String userId, int ticketCost, int seatNumber) {
+        this.flightNumber=flightNumber;
+        this.userId=userId;
+        this.ticketCost=ticketCost;
+        this.seatNumber=seatNumber;
+    }
+
 
     public Integer getTicketId() {
         return this.ticketId;

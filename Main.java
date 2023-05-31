@@ -61,6 +61,16 @@ public class Main {
                             System.out.println("Enter Flight Number to Book Tickets:");
                             int flightNumber = sc.nextInt();
                             sc.nextLine();
+                            Flights flightObj = this.allFlightsMap.get(flightNumber);
+
+                            flightObj.showAllUnBookedSeats();
+
+                            System.out.println("Enter Seat Number to Book Ticket:");
+                            int seatNumber = sc.nextInt();
+                            sc.nextLine();
+
+                            flightObj.BookTicket(seatNumber,userId);
+
                             break;
 
                         case 4:

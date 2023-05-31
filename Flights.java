@@ -15,6 +15,8 @@ public class Flights {
         private LocalDateTime nextDeparture;
         private Integer seatCount = 60;
 
+        private Integer ticketCost = 1000;
+
 
         private Map<Integer,Ticket> seatTicketMap = new HashMap<>();
 
@@ -40,10 +42,18 @@ public class Flights {
             System.out.println("Flight Created and Added to List :" + flightNumber + "Carrier :" + airlineName);
         }
 
+        public void showAllUnBookedSeats(){
+            for(Integer i : this.seatTicketMap.keySet()){
+                if(this.seatTicketMap.get(i)==null){
+                    System.out.print(i + " , ");
+                }
+            }
+        }
 
-        public void removeFlight(Integer flightNumber){
-
-
+        public void BookTicket(Integer seatNumber, String userId){
+            Ticket ticket = new Ticket();
+            ticket.createTicketAutoNumber(this.flightNumber, userId, this.ticketCost, seatNumber);
+            this.seatTicketMap.put(seatNumber,ticket);
         }
 
     public Integer getFlightNumber() {
@@ -100,6 +110,17 @@ public class Flights {
 
     public void setSeatCount(Integer seatCount) {
         this.seatCount = seatCount;
+    }
+
+    public Integer getTicketCost() {
+        return this.ticketCost;
+    }
+
+    public void setTicketCost(Integer ticketCost) {
+        this.ticketCost = ticketCost;
+    }
+    public Map<Integer, Ticket> getSeatTicketMap() {
+        return this.seatTicketMap;
     }
 }
 

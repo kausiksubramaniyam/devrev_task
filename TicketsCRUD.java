@@ -18,14 +18,13 @@ public class TicketsCRUD {
 
     public void bookTicket(Ticket ticket) {
         try {
-            String query = "INSERT INTO Tickets (ticketId, flightId, passengerId, ticketCost, seatNumber) " +
+            String query = "INSERT INTO Tickets (flightId, passengerId, ticketCost, seatNumber) " +
                     "VALUES (?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, ticket.getTicketId());
-            statement.setInt(2, ticket.getFlightNumber());
-            statement.setString(3, ticket.getUserId());
-            statement.setInt(4, ticket.getTicketCost());
-            statement.setInt(5, ticket.getSeatNumber());
+            statement.setInt(1, ticket.getFlightNumber());
+            statement.setString(2, ticket.getUserId());
+            statement.setInt(3, ticket.getTicketCost());
+            statement.setInt(4, ticket.getSeatNumber());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
