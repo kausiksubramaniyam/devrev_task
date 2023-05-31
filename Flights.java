@@ -16,7 +16,7 @@ public class Flights {
         private Integer seatCount = 60;
 
 
-        private Map<Integer,Object> seatTicketMap = new HashMap<>();
+        private Map<Integer,Ticket> seatTicketMap = new HashMap<>();
 
 
         public void createFlight(Integer flightNumber, String flightModel,String airlineName, String fromDestination, String toDestination, LocalDateTime nextDeparture, Integer seatCount){
