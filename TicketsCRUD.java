@@ -79,11 +79,28 @@ public class TicketsCRUD {
         return null;
     }
 
-    public List<Ticket> getAllTickets() {
+    public List<Ticket> getAllBookedTicketsByFlightId(Integer flightId) {
         List<Ticket> tickets = new ArrayList<>();
         try {
-            String query = "SELECT * FROM Tickets";
+            String query = "SELECT * FROM Tickets WHERE flightId = ?";
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,flightId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                tickets.add(createTicketFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tickets;
+    }
+
+    public List<Ticket> getAllTicketsBookedByUserId(String userId) {
+        List<Ticket> tickets = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM Tickets WHERE passengerId = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1,userId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 tickets.add(createTicketFromResultSet(resultSet));

@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +12,7 @@ public class Main {
     private Map<Integer,Flights> allFlightsMap = new HashMap<>();
     private Map<String,Users> allUsersMap = new HashMap<>();
 
-    public void Main(String args[]){
+    public void Main(String args[]) throws SQLException {
         Scanner sc =  new Scanner(System.in);
         System.out.println("----------------------FLIGHT TICKETING SYSTEM--------------------------");
         System.out.println("Enter 1 To Login as USER");
@@ -28,7 +29,56 @@ public class Main {
                 System.out.println("Enter Your Password :");
                 String password = sc.nextLine();
                 if(userlogin.login(userId,password)==1){
+                    System.out.println("=======WELCOME USER=======");
+                    System.out.println("Please Select the Action You would Like to Perform : ");
+                    System.out.println("1. Search Flights On Date");
+                    System.out.println("2. Search Flights Between a Start Date and End Date");
+                    System.out.println("3. Book Tickets");
+                    System.out.println("4. My Bookings - View All Your Bookings");
+                    System.out.println("5. Logout");
+                    int userChoice = sc.nextInt();
+                    sc.nextLine();
+                    FlightsCRUD allFlights = new FlightsCRUD();
+                    switch (userChoice){
+                        case 1:
+                            System.out.println("Enter Date to Search Flights :");
+                            String departureDateTimeString = sc.nextLine();
+                            LocalDateTime departureTimeToCheck = LocalDateTime.parse(departureDateTimeString);
+                            allFlights.searchFlightsByDate(departureTimeToCheck);
+                            break;
 
+                        case 2:
+                            System.out.println("Enter Start Date to Search Flights From:");
+                            String startDateTimeString = sc.nextLine();
+                            LocalDateTime startTimeToCheck = LocalDateTime.parse(startDateTimeString);
+                            System.out.println("Enter End Date to Search Flights From:");
+                            String endDateTimeString = sc.nextLine();
+                            LocalDateTime endTimeToCheck = LocalDateTime.parse(startDateTimeString);
+                            allFlights.searchFlightsBetweenStartAndEndDate(startTimeToCheck,endTimeToCheck);
+                            break;
+
+                        case 3:
+                            System.out.println("Enter Flight Number to Book Tickets:");
+                            int flightNumber = sc.nextInt();
+                            sc.nextLine();
+                            break;
+
+                        case 4:
+                            System.out.println(" ------------------ MY BOOKINGS ---------------------");
+                            TicketsCRUD alltickets = new TicketsCRUD();
+                            List<Ticket> allBookedTicketsInFlight = alltickets.getAllTicketsBookedByUserId(userId);
+                            for(Ticket tckt : allBookedTicketsInFlight){
+                                System.out.print("Ticket ID :" + tckt.getTicketId() + " -- ");
+                                System.out.print("Flight Number:" + tckt.getFlightNumber() + " -- ");
+                                System.out.print("Seat Number :" + tckt.getSeatNumber() + " -- ");
+                                System.out.println(" ------------------------------------------------------------- ");
+                            }
+                            break;
+
+                        case 5:
+                            System.out.println("THANK YOU. LOGGING OUT ......");
+                            System.exit(0);
+                    }
                 }
                 break;
             case 2:
@@ -39,30 +89,30 @@ public class Main {
                 String adminPassword = sc.nextLine();
                 if(userlogin.login(adminId,adminPassword)==0){
                     System.out.println("=======WELCOME ADMIN=======");
-                    System.out.print("Please Select the Action You would Like to Perform : ");
-                    System.out.print("1. Add Flights");
-                    System.out.print("2. Remove Flights");
-                    System.out.print("3. View All Bookings Based on Flight Number");
-                    System.out.print("4. View All Bookings Based on Departure Time");
+                    System.out.println("Please Select the Action You would Like to Perform : ");
+                    System.out.println("1. Add Flights");
+                    System.out.println("2. Remove Flights");
+                    System.out.println("3. View All Bookings Based on Flight Number");
+                    System.out.println("4. View All Bookings Based on Departure Time");
                     int adminChoice = sc.nextInt();
                     sc.nextLine();
                     switch (adminChoice){
                         case 1:
-                            System.out.print("Enter flight number: ");
+                            System.out.println("Enter flight number: ");
                             int flightNumber = sc.nextInt();
                             sc.nextLine();
-                            System.out.print("Enter flight model: ");
+                            System.out.println("Enter flight model: ");
                             String flightModel = sc.nextLine();
-                            System.out.print("Enter airline name: ");
+                            System.out.println("Enter airline name: ");
                             String airlineName = sc.nextLine();
-                            System.out.print("Enter departure from: ");
+                            System.out.println("Enter departure from: ");
                             String fromDestination = sc.nextLine();
-                            System.out.print("Enter arrival to: ");
+                            System.out.println("Enter arrival to: ");
                             String toDestination = sc.nextLine();
-                            System.out.print("Enter next departure date and time (YYYY-MM-DD HH:MM): ");
+                            System.out.println("Enter next departure date and time (YYYY-MM-DD HH:MM): ");
                             String departureDateTimeString = sc.nextLine();
                             LocalDateTime nextDeparture = LocalDateTime.parse(departureDateTimeString);
-                            System.out.print("Enter seat count: ");
+                            System.out.println("Enter seat count: ");
                             int seatCount = sc.nextInt();
                             sc.nextLine();
 
@@ -72,7 +122,7 @@ public class Main {
                             break;
 
                         case 2:
-                            System.out.print("Enter Flight Number to Remove Flight: ");
+                            System.out.println("Enter Flight Number to Remove Flight: ");
                             int flightNum = sc.nextInt();
                             sc.nextLine();
                             if(this.allFlightsMap.containsKey(flightNum)){
@@ -85,33 +135,40 @@ public class Main {
                             break;
 
                         case 3:
-                            System.out.print("Enter Flight Number to View Bookings :");
-                            int flightNoForBookings = sc.nextInt();
+                            System.out.println("Enter Flight Number to View Bookings :");
+                            int flightNoToGetBookings = sc.nextInt();
                             sc.nextLine();
+                            TicketsCRUD alltickets = new TicketsCRUD();
+                            System.out.println("Next Departure of Flight :" + this.allFlightsMap.get(flightNoToGetBookings).getNextDeparture());
+                            List<Ticket> allBookedTicketsInFlight = alltickets.getAllBookedTicketsByFlightId(flightNoToGetBookings);
+                            for(Ticket tckt : allBookedTicketsInFlight){
+                                System.out.print("Ticket ID :" + tckt.getTicketId() + " -- ");
+                                System.out.print("Ticket Booked By (User ID) :" + tckt.getUserId() + " -- ");
+                                System.out.print("Seat Number :" + tckt.getSeatNumber() + " -- ");
+                                System.out.println(" ------------------------------------------------------------- ");
+                            }
                             break;
-
                     }
-
                 }
                 break;
             case 3:
                 System.out.println("************* SIGN UP *************");
-                System.out.print("Enter user ID: ");
+                System.out.println("Enter user ID: ");
                 String newUserId = sc.nextLine();
-                System.out.print("Enter user name: ");
+                System.out.println("Enter user name: ");
                 String userName = sc.nextLine();
-                System.out.print("Enter user age: ");
+                System.out.println("Enter user age: ");
                 int userAge = sc.nextInt();
                 sc.nextLine();
-                System.out.print("Enter user type: ");
+                System.out.println("Enter user type: ");
                 int userType = sc.nextInt();
                 sc.nextLine();
-                System.out.print("Enter Aadhar ID: ");
+                System.out.println("Enter Aadhar ID: ");
                 int aadharId = sc.nextInt();
                 sc.nextLine();
-                System.out.print("Enter password: ");
+                System.out.println("Enter password: ");
                 String userPassword = sc.nextLine();
-                System.out.print("Enter phone number: ");
+                System.out.println("Enter phone number: ");
                 String phoneNumber = sc.nextLine();
 
                 Users user = new Users();
